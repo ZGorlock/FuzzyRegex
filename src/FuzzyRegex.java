@@ -122,7 +122,6 @@ public final class FuzzyRegex {
      * @param tokens     The list to store extracted non-variable tokens in. This will contain a list of all optimal non-variable token extraction sets.
      * @param ignoreCase Whether to ignore case of not.
      * @return The closeness of the two strings, between 0 and 1.
-     *
      * @see #stringCompare(String, String, List, List, boolean, boolean)
      */
     public static double stringCompare(String pattern, String text, List<List<String>> vars, List<List<String>> tokens, boolean ignoreCase) {
@@ -137,7 +136,6 @@ public final class FuzzyRegex {
      * @param vars    The list to store extracted variables in. This will contain a list of all optimal variable extraction sets.
      * @param tokens  The list to store extracted non-variable tokens in. This will contain a list of all optimal non-variable token extraction sets.
      * @return The closeness of the two strings, between 0 and 1.
-     *
      * @see #stringCompare(String, String, List, List, boolean)
      */
     public static double stringCompare(String pattern, String text, List<List<String>> vars, List<List<String>> tokens) {
@@ -151,7 +149,6 @@ public final class FuzzyRegex {
      * @param text    The string to compare.
      * @param vars    The list to store extracted variables in. This will contain a list of all optimal variable extraction sets.
      * @return The closeness of the two strings, between 0 and 1.
-     *
      * @see #stringCompare(String, String, List, List)
      */
     public static double stringCompare(String pattern, String text, List<List<String>> vars) {
@@ -166,7 +163,6 @@ public final class FuzzyRegex {
      * @param ignoreCase        Whether to ignore case of not.
      * @param ignorePunctuation Whether to ignore punctuation of not.
      * @return The closeness of the two strings, between 0 and 1.
-     *
      * @see #stringCompare(String, String, List, List, boolean, boolean)
      */
     public static double stringCompare(String pattern, String text, boolean ignoreCase, boolean ignorePunctuation) {
@@ -180,7 +176,6 @@ public final class FuzzyRegex {
      * @param text       The string to compare.
      * @param ignoreCase Whether to ignore case of not.
      * @return The closeness of the two strings, between 0 and 1.
-     *
      * @see #stringCompare(String, String, boolean, boolean)
      */
     public static double stringCompare(String pattern, String text, boolean ignoreCase) {
@@ -193,7 +188,6 @@ public final class FuzzyRegex {
      * @param pattern The string to compare against.
      * @param text    The string to compare.
      * @return The closeness of the two strings, between 0 and 1.
-     *
      * @see #stringCompare(String, String, boolean)
      */
     public static double stringCompare(String pattern, String text) {
@@ -330,7 +324,6 @@ public final class FuzzyRegex {
      * @param tokens     The list to store extracted non-variable tokens in. This will contain a list of all optimal non-variable token extraction sets.
      * @param ignoreCase Whether to ignore case or not.
      * @return The edit distance between the two strings.
-     *
      * @see #stringEditDistance(String, String, List, List, boolean, boolean)
      */
     public static int stringEditDistance(String pattern, String text, List<List<String>> vars, List<List<String>> tokens, boolean ignoreCase) {
@@ -345,7 +338,6 @@ public final class FuzzyRegex {
      * @param vars    The list to store extracted variables in. This will contain a list of all optimal variable extraction sets.
      * @param tokens  The list to store extracted non-variable tokens in. This will contain a list of all optimal non-variable token extraction sets.
      * @return The edit distance between the two strings.
-     *
      * @see #stringEditDistance(String, String, List, List, boolean)
      */
     public static int stringEditDistance(String pattern, String text, List<List<String>> vars, List<List<String>> tokens) {
@@ -360,7 +352,6 @@ public final class FuzzyRegex {
      * @param ignoreCase        Whether to ignore case or not.
      * @param ignorePunctuation Whether to ignore punctuation or not.
      * @return The edit distance between the two strings.
-     *
      * @see #stringEditDistance(String, String, List, List, boolean, boolean)
      */
     public static int stringEditDistance(String pattern, String text, boolean ignoreCase, boolean ignorePunctuation) {
@@ -374,7 +365,6 @@ public final class FuzzyRegex {
      * @param text       The string to compare.
      * @param ignoreCase Whether to ignore case or not.
      * @return The edit distance between the two strings.
-     *
      * @see #stringEditDistance(String, String, boolean, boolean)
      */
     public static int stringEditDistance(String pattern, String text, boolean ignoreCase) {
@@ -387,7 +377,6 @@ public final class FuzzyRegex {
      * @param pattern The pattern to compare the string against.
      * @param text    The string to compare.
      * @return The edit distance between the two strings.
-     *
      * @see #stringEditDistance(String, String, boolean)
      */
     public static int stringEditDistance(String pattern, String text) {
@@ -567,7 +556,6 @@ public final class FuzzyRegex {
      * @param text    The string to compare.
      * @param D       The matrix to print.
      * @return The D matrix as a string.
-     *
      * @see #printDmatch(String, String, int[][], int, int)
      * @see #stringEditDistance(String, String, List, List, boolean, boolean)
      */
@@ -584,7 +572,6 @@ public final class FuzzyRegex {
      * @param row     The current row location of the algorithm.
      * @param col     The current column location of the algorithm.
      * @return The D matrix as a string.
-     *
      * @see #stringEditDistance(String, String, List, List, boolean, boolean)
      */
     @SuppressWarnings("UseOfSystemOutOrSystemErr")
