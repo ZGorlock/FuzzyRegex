@@ -1,11 +1,11 @@
 # FuzzyRegex
-2012 - Fuzzy regex pattern matching and capturing.
+Fuzzy Regex Pattern Matching and Capturing
 
 
-## Combines the matching and capturing power of Regex with the comparison power of the Levenshtein Distance algorithm.
+## Combines the matching and capturing power of Regex with the comparison power of the Levenshtein Distance algorithm
 
 
-### Match strings to patterns and extract variables even if the input text does not match the pattern exactly. For example:
+### Match strings to patterns and extract variables even if the input text does not match the pattern exactly:
 
 __Pattern:__ "my name is ¿ and I am ¿ years old"
 
@@ -19,7 +19,7 @@ __Input:__ "My names John and I'm 30 years old."\
     Variables: ["John", "30"]\
     Tokens: ["My names ", " and I'm ", " years old."]
 
-### In ambiguous cases all valid results are returned. For example:
+### In ambiguous cases all valid results are returned:
 
 __Pattern:__ "What ¿ ¿s"
 
