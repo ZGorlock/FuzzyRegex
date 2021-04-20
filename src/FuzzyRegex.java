@@ -125,7 +125,7 @@ public final class FuzzyRegex {
      * @see #stringCompare(String, String, List, List, boolean, boolean)
      */
     public static double stringCompare(String pattern, String text, List<List<String>> vars, List<List<String>> tokens, boolean ignoreCase) {
-        return stringCompare(pattern, text, vars, tokens, false, false);
+        return stringCompare(pattern, text, vars, tokens, ignoreCase, false);
     }
     
     /**
