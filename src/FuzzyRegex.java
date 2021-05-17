@@ -5,12 +5,14 @@
  */
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+
+import commons.math.BoundUtility;
+import commons.string.StringUtility;
 
 /**
  * Provides fuzzy regex pattern matching functionality.
@@ -103,14 +105,14 @@ public final class FuzzyRegex {
         }
         
         pattern = pattern.replaceAll("[" + VARCHAR_STRING + "]+", VARCHAR_STRING); //remove double vars
-        pattern = ignorePunctuation ? removePunctuationSoft(pattern, Collections.singletonList(VARCHAR)) : pattern;
+        pattern = ignorePunctuation ? StringUtility.removePunctuationSoft(pattern, Collections.singletonList(VARCHAR)) : pattern;
         
         if (pattern.isEmpty()) {
             return 0.0;
         }
         
-        int length = Math.max(pattern.length(), ignorePunctuation ? removePunctuation(text).length() : text.length());
-        return truncateNum((double) (length - stringEditDistance(pattern, text, vars, tokens, ignoreCase, ignorePunctuation)) / length, 0.0, 1.0).doubleValue();
+        int length = Math.max(pattern.length(), ignorePunctuation ? StringUtility.removePunctuation(text).length() : text.length());
+        return BoundUtility.truncateNum((double) (length - stringEditDistance(pattern, text, vars, tokens, ignoreCase, ignorePunctuation)) / length, 0.0, 1.0).doubleValue();
     }
     
     /**
@@ -215,7 +217,7 @@ public final class FuzzyRegex {
      */
     @SuppressWarnings({"AssignmentToMethodParameter", "SillyAssignment"})
     public static int stringEditDistance(String pattern, String text, List<List<String>> vars, List<List<String>> tokens, boolean ignoreCase, boolean ignorePunctuation) {
-        pattern = ignorePunctuation ? removePunctuationSoft(pattern, Collections.singletonList(VARCHAR)) : pattern;
+        pattern = ignorePunctuation ? StringUtility.removePunctuationSoft(pattern, Collections.singletonList(VARCHAR)) : pattern;
         pattern = pattern.replaceAll("[" + VARCHAR_STRING + "]+", VARCHAR_STRING); //remove double vars
         
         int m = pattern.length(); //i
@@ -276,9 +278,9 @@ public final class FuzzyRegex {
                 char patternChar = pattern.charAt(i - 1);
                 for (int j = 1; j <= n; j++) {
                     char textChar = text.charAt(j - 1);
-                    if (ignorePunctuation && isSymbol(textChar)) {
+                    if (ignorePunctuation && StringUtility.isSymbol(textChar)) {
                         for (j = j; j <= n; j++) {
-                            if (isSymbol(text.charAt(j - 1))) {
+                            if (StringUtility.isSymbol(text.charAt(j - 1))) {
                                 if (!init) {
                                     D[i][j] = D[i][j - 1] - ((j == 1) ? 1 : 0);
                                     D[i - 1][j] = D[i - 1][j - 1];
@@ -457,7 +459,7 @@ public final class FuzzyRegex {
                 
             } else if ((row > 1) && (VARCHAR == pattern.charAt(row - 2))) { //if the next row is a var char
                 
-                if (ignorePunctuation && isSymbol(text.charAt(col - 1))) {
+                if (ignorePunctuation && StringUtility.isSymbol(text.charAt(col - 1))) {
                     while ((col > 1) && (D[row][col - 1] == D[row][col])) {
                         thisToken.insert(0, text.charAt(col - 1));
                         col--; //move left
@@ -584,9 +586,9 @@ public final class FuzzyRegex {
         
         for (int i = 0; i <= text.length(); i++) {
             if (i > 0) {
-                dMatch.append(spaces(spaces - 1)).append(text.charAt(i - 1));
+                dMatch.append(StringUtility.spaces(spaces - 1)).append(text.charAt(i - 1));
             } else {
-                dMatch.append(spaces(spaces + 1));
+                dMatch.append(StringUtility.spaces(spaces + 1));
             }
         }
         dMatch.append(System.lineSeparator());
@@ -600,135 +602,13 @@ public final class FuzzyRegex {
             
             for (int j = 0; j <= n; j++) {
                 String element = (((i == row) && (j == col)) ? "*" : "") + ((D[i][j] > (Integer.MAX_VALUE / 2)) ? "^" : D[i][j]);
-                dMatch.append(spaces(spaces - element.length())).append(element);
+                dMatch.append(StringUtility.spaces(spaces - element.length())).append(element);
             }
             dMatch.append(System.lineSeparator());
         }
         
         System.out.println(dMatch);
         return dMatch.toString();
-    }
-    
-    
-    //String Functions
-    
-    /**
-     * Determines if a character is a symbol or not.
-     *
-     * @param c The character.
-     * @return Whether the character is a symbol or not.
-     */
-    public static boolean isSymbol(char c) {
-        return !(Character.isLetterOrDigit(c) || isWhitespace(c));
-    }
-    
-    /**
-     * Determines if a character is whitespace or not.
-     *
-     * @param c The character.
-     * @return Whether the character is whitespace or not.
-     */
-    public static boolean isWhitespace(char c) {
-        return Character.isWhitespace(c) || (c == '\0');
-    }
-    
-    /**
-     * Removes the punctuation from a string.
-     *
-     * @param string The string to operate on.
-     * @return The string with punctuation removed.
-     */
-    public static String removePunctuation(String string) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < string.length(); i++) {
-            char current = string.charAt(i);
-            if (Character.isLetterOrDigit(current) || Character.isWhitespace(current)) {
-                sb.append(string.charAt(i));
-            }
-        }
-        return sb.toString();
-    }
-    
-    /**
-     * Gently removes the punctuation from a string.
-     *
-     * @param string The string to operate on.
-     * @param save   A list of punctuation characters to ignore.
-     * @return The string with punctuation gently removed.
-     */
-    public static String removePunctuationSoft(String string, List<Character> save) {
-        StringBuilder depuncted = new StringBuilder();
-        
-        for (char c : string.toCharArray()) {
-            if (!isSymbol(c) || save.contains(c)) {
-                depuncted.append(c);
-            }
-        }
-        
-        return depuncted.toString();
-    }
-    
-    /**
-     * Creates a string of the length specified filled with spaces.
-     *
-     * @param num The length to make the string.
-     * @return A new string filled with spaces to the length specified.
-     */
-    public static String spaces(int num) {
-        return fillStringOfLength(' ', num);
-    }
-    
-    /**
-     * Creates a string of the length specified filled with the character specified.
-     *
-     * @param fill The character to fill the string with.
-     * @param size The length to make the string.
-     * @return A new string filled with the specified character to the length specified.
-     */
-    public static String fillStringOfLength(char fill, int size) {
-        return padRight("", size, fill);
-    }
-    
-    /**
-     * Pads a string on the right to a specified length.
-     *
-     * @param str     The string to pad.
-     * @param size    The target size of the string.
-     * @param padding The character to pad with.
-     * @return The padded string.
-     */
-    public static String padRight(String str, int size, char padding) {
-        if (str.length() >= size) {
-            return str;
-        }
-        
-        int numPad = size - str.length();
-        char[] chars = new char[numPad];
-        Arrays.fill(chars, padding);
-        String pad = new String(chars);
-        return str + pad;
-    }
-    
-    
-    //Bound Functions
-    
-    /**
-     * Forces a number within defined bounds.
-     *
-     * @param num The number value.
-     * @param min The minimum value allowed.
-     * @param max The maximum value allowed.
-     * @return The truncated number.
-     */
-    public static Number truncateNum(Number num, Number min, Number max) {
-        Number n = num;
-        if (num.doubleValue() < min.doubleValue()) {
-            n = min;
-        }
-        if (num.doubleValue() > max.doubleValue()) {
-            n = max;
-        }
-        return n;
     }
     
 }

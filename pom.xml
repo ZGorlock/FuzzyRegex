@@ -23,13 +23,23 @@
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
         <maven-install-plugin.version>2.5.2</maven-install-plugin.version>
-    
+        
+        <!-- COMMONS -->
+        <commons-lang3.version>3.9</commons-lang3.version>
+        
         <!-- UNIT TESTS -->
         <powermock.version>2.0.5</powermock.version>
     </properties>
     
     
     <dependencies>
+        <!-- COMMONS -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
+        
         <!-- UNIT TESTS -->
         <dependency>
             <groupId>org.powermock</groupId>
