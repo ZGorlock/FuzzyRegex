@@ -60,6 +60,8 @@
         
         <sourceDirectory>${project.basedir}/src</sourceDirectory>
         <outputDirectory>${project.basedir}/bin/classes</outputDirectory>
+        <testSourceDirectory>${project.basedir}/test</testSourceDirectory>
+        <testOutputDirectory>${project.basedir}/bin/test-classes</testOutputDirectory>
         
         <pluginManagement>
             <plugins>
