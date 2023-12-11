@@ -6,7 +6,7 @@
         <sourceOutputDir name="bin/generated-sources/annotations" />
         <sourceTestOutputDir name="bin/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="FuzzyRegex" />
+        <module name="fuzzy-regex" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
